@@ -795,13 +795,13 @@ usort($photos, function($a, $b) {
                                     <?= $phone ?>
                                 </a>
                                 <div class="flex items-center gap-4 mt-4">
-                                    <a href="viber://chat?number=<?= $phone_clean ?>" class="text-purple-400 hover:text-purple-300 text-2xl transition" title="Viber">
+                                    <a href="viber://chat?number=<?= $phone_clean ?>" target="_blank" class="text-purple-400 hover:text-purple-300 text-2xl transition" title="Viber">
                                         <i class="fa-brands fa-viber"></i>
                                     </a>
-                                    <a href="https://wa.me/<?= $phone_clean ?>" class="text-green-400 hover:text-green-300 text-2xl transition" title="WhatsApp">
+                                    <a href="https://wa.me/<?= $phone_clean ?>" target="_blank" class="text-green-400 hover:text-green-300 text-2xl transition" title="WhatsApp">
                                         <i class="fa-brands fa-whatsapp"></i>
                                     </a>
-                                    <a href="https://t.me/+<?= $phone_clean ?>" class="text-blue-400 hover:text-blue-300 text-2xl transition" title="Telegram">
+                                    <a href="https://t.me/Roman_Kov_y" target="_blank" class="text-blue-400 hover:text-blue-300 text-2xl transition" title="Telegram">
                                         <i class="fa-brands fa-telegram"></i>
                                     </a>
                                 </div>
