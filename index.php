@@ -40,6 +40,8 @@ usort($photos, function($a, $b) {
     <title><?= e($settings['meta_title']) ?: $business_name . ' — Готель-Сауна у Хмельницькому' ?></title>
     <meta name="description" content="<?= e($settings['meta_desc']) ?: $business_desc ?>"/>
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <?php
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
         $host = $_SERVER['HTTP_HOST'];
