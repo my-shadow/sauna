@@ -616,26 +616,26 @@ usort($photos, function($a, $b) {
                     foreach ($prices as $i => [$hours, $price]):
                         $popular = ($i === 2);
                     ?>
-                    <div class="price-row flex items-center gap-6 px-6 py-5 border-b border-gray-800/80 <?= $popular ? 'bg-teal-900/20 border-l-2 border-l-teal-600' : '' ?>">
-                        <div class="flex-shrink-0 w-12 text-right">
-                            <span class="font-play text-4xl <?= $popular ? 'text-teal-300' : 'text-gray-600' ?>"><?= $hours ?></span>
+                    <div class="price-row flex items-center gap-2 sm:gap-6 px-3 sm:px-6 py-5 border-b border-gray-800/80 <?= $popular ? 'bg-teal-900/20 border-l-2 border-l-teal-600' : '' ?>">
+                        <div class="flex-shrink-0 w-8 sm:w-12 text-right">
+                            <span class="font-play text-3xl sm:text-4xl <?= $popular ? 'text-teal-300' : 'text-gray-600' ?>"><?= $hours ?></span>
                         </div>
-                        <div class="text-xs text-gray-600 uppercase tracking-[.15em] flex-shrink-0 w-14">
+                        <div class="text-xs text-gray-600 uppercase tracking-[.15em] flex-shrink-0 w-12 sm:w-14">
                             <?= $hours == 1 ? 'година' : ($hours < 5 ? 'години' : 'годин') ?>
                         </div>
                         <div class="flex-1 h-px bg-gray-800/60 mx-2 hidden sm:block"></div>
                         <?php if($popular): ?>
-                        <div class="flex-shrink-0 mr-2">
+                        <div class="hidden sm:block flex-shrink-0">
                             <span class="bg-teal-700 text-teal-200 text-base font-bold uppercase tracking-[.1em] px-2.5 py-1">Популярний</span>
                         </div>
                         <?php endif; ?>
-                        <div class="flex-shrink-0 text-right">
-                            <span class="font-play text-3xl <?= $popular ? 'text-amber-400' : 'text-white' ?>"><?= number_format((int)$price, 0, '.', '&thinsp;') ?></span>
+                        <div class="flex-shrink-0 text-right ml-auto sm:ml-0">
+                            <span class="font-play text-2xl sm:text-3xl <?= $popular ? 'text-amber-400' : 'text-white' ?>"><?= number_format((int)$price, 0, '.', '&thinsp;') ?></span>
                             <span class="text-xs text-gray-600 ml-1">грн</span>
                         </div>
                         <a href="#booking"
                            data-pick-hours="<?= $hours ?>"
-                           class="pick-plan flex-shrink-0 <?= $popular ? 'bg-amber-500 hover:bg-amber-400 text-gray-950' : 'border border-gray-700 hover:border-teal-700 text-gray-400 hover:text-teal-300' ?> text-base font-bold uppercase tracking-[.1em] px-4 py-2 transition">
+                           class="pick-plan flex-shrink-0 <?= $popular ? 'bg-amber-500 hover:bg-amber-400 text-gray-950' : 'border border-gray-700 hover:border-teal-700 text-gray-400 hover:text-teal-300' ?> text-base font-bold uppercase tracking-[.1em] px-3 sm:px-4 py-2 transition">
                             Обрати
                         </a>
                     </div>
