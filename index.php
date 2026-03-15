@@ -41,9 +41,12 @@ usort($photos, function($a, $b) {
     <meta name="description" content="<?= e($settings['meta_desc']) ?: $business_desc ?>"/>
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
     <?php
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'];
+
         $meta_title = e($settings['meta_title']) ?: $business_name . ' — Готель-Сауна у Хмельницькому';
         $meta_desc  = e($settings['meta_desc'])  ?: $business_desc;
-        $og_image   = e($settings['og_image'])   ?: '';
+        $og_image   = e($protocol . $host . $settings['og_image'])   ?: '';
         $site_url   = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? '') . '/';
     ?>
     <!-- Open Graph -->
@@ -80,7 +83,7 @@ usort($photos, function($a, $b) {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script>
@@ -88,8 +91,7 @@ usort($photos, function($a, $b) {
             theme: {
                 extend: {
                     fontFamily: {
-                        'play':     ['Play', 'sans-serif'],
-                        'playfair': ['"Playfair Display"', 'serif'],
+                        'play':     ['Play', 'sans-serif']
                     }
                 }
             }
@@ -232,7 +234,7 @@ usort($photos, function($a, $b) {
             </div>
 
             <!-- Headline -->
-            <h1 class="font-playfair leading-none text-white mb-8" style="font-size: clamp(5rem, 12vw, 9rem); line-height: .9;">
+            <h1 class="font-play leading-none text-white mb-8" style="font-size: clamp(5rem, 12vw, 9rem); line-height: .9;">
                 Водо<span class="text-teal-300">пад</span>
             </h1>
 
@@ -275,10 +277,10 @@ usort($photos, function($a, $b) {
 
             <!-- Floating stat card -->
             <div class="absolute bottom-8 right-8 hidden md:block bg-gray-950/85 backdrop-blur-sm border border-gray-800/80 p-6 min-w-[170px]">
-                <div class="font-playfair text-5xl text-amber-400 leading-none mb-1">4</div>
+                <div class="font-play text-5xl text-amber-400 leading-none mb-1">4</div>
                 <div class="text-base text-gray-500 uppercase tracking-[.2em] mb-5">типи саун</div>
                 <div class="w-full h-px bg-gray-800 mb-5"></div>
-                <div class="font-playfair text-5xl text-amber-400 leading-none mb-1">20<span class="text-3xl">+</span></div>
+                <div class="font-play text-5xl text-amber-400 leading-none mb-1">20<span class="text-3xl">+</span></div>
                 <div class="text-base text-gray-500 uppercase tracking-[.2em]">років досвіду</div>
             </div>
         </div>
@@ -315,7 +317,7 @@ usort($photos, function($a, $b) {
                 foreach ($stats as $i => [$num, $label]):
                 ?>
                 <div class="anim anim-up d<?= $i+1 ?>">
-                    <div class="font-playfair text-5xl md:text-6xl text-teal-300 leading-none mb-3"><?= $num ?></div>
+                    <div class="font-play text-5xl md:text-6xl text-teal-300 leading-none mb-3"><?= $num ?></div>
                     <div class="w-6 h-px bg-teal-700 mx-auto mb-3"></div>
                     <div class="text-base text-gray-500 uppercase tracking-[.18em]"><?= $label ?></div>
                 </div>
@@ -334,7 +336,7 @@ usort($photos, function($a, $b) {
                     <div class="w-10 h-px bg-teal-600"></div>
                     <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Що вас чекає</span>
                 </div>
-                <h2 class="font-playfair text-5xl md:text-6xl text-white anim anim-up d1">
+                <h2 class="font-play text-5xl md:text-6xl text-white anim anim-up d1">
                     Зони відпочинку
                 </h2>
             </div>
@@ -342,8 +344,8 @@ usort($photos, function($a, $b) {
             <!-- Zone 1 ─ Жар ─────────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center mb-28">
                 <div class="anim anim-left order-2 lg:order-1">
-                    <div class="font-playfair text-[8rem] leading-none text-gray-800/60 mb-2 select-none">01</div>
-                    <h3 class="font-playfair text-4xl text-white mb-5">Зона Жару</h3>
+                    <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">01</div>
+                    <h3 class="font-play text-4xl text-white mb-5">Зона Жару</h3>
                     <p class="text-gray-400 leading-relaxed mb-8">
                         Чотири різних сауни для будь-якого настрою та потреби тіла.
                         Від класичної дров'яної парної до м'якої інфрачервоної —
@@ -364,7 +366,7 @@ usort($photos, function($a, $b) {
                     </div>
                 </div>
                 <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2">
-                    <img src="sauna-photo/photo_3_2026-03-14_13-29-47.jpg"
+                    <img src="sauna-photo/photo_6_2026-03-14_13-29-47.jpg"
                          alt="Сауна Водопад — Зона жару"
                          class="zone-img w-full h-[420px] object-cover">
                 </div>
@@ -373,13 +375,13 @@ usort($photos, function($a, $b) {
             <!-- Zone 2 ─ Вода ────────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center mb-28">
                 <div class="zone-wrap overflow-hidden anim anim-left">
-                    <img src="sauna-photo/photo_7_2026-03-14_13-29-47.jpg"
+                    <img src="sauna-photo/photo_25_2026-03-14_13-29-47.jpg"
                          alt="Сауна Водопад — Водні процедури"
-                         class="zone-img w-full h-[420px] object-cover">
+                         class="zone-img w-full h-[420px] object-cover" style="object-position: top">
                 </div>
                 <div class="anim anim-right">
-                    <div class="font-playfair text-[8rem] leading-none text-gray-800/60 mb-2 select-none">02</div>
-                    <h3 class="font-playfair text-4xl text-white mb-5">Водні Процедури</h3>
+                    <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">02</div>
+                    <h3 class="font-play text-4xl text-white mb-5">Водні Процедури</h3>
                     <p class="text-gray-400 leading-relaxed mb-8">
                         Контрастні процедури — найефективніший спосіб загартувати організм
                         і розбудити кровообіг. Від теплого гідромасажу до бадьорого
@@ -404,8 +406,8 @@ usort($photos, function($a, $b) {
             <!-- Zone 3 ─ СПА ─────────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center mb-28">
                 <div class="anim anim-left order-2 lg:order-1">
-                    <div class="font-playfair text-[8rem] leading-none text-gray-800/60 mb-2 select-none">03</div>
-                    <h3 class="font-playfair text-4xl text-white mb-5">СПА & Масаж</h3>
+                    <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">03</div>
+                    <h3 class="font-play text-4xl text-white mb-5">СПА & Масаж</h3>
                     <p class="text-gray-400 leading-relaxed mb-8">
                         Гідромасажний СПА-басейн на 8 осіб з 256 форсунками та гейзером
                         і масаж від майстра з понад 20-річним досвідом — кожному
@@ -429,7 +431,7 @@ usort($photos, function($a, $b) {
                     </div>
                 </div>
                 <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2">
-                    <img src="sauna-photo/photo_12_2026-03-14_13-29-47.jpg"
+                    <img src="sauna-photo/photo_19_2026-03-14_13-29-47.jpg"
                          alt="СПА Водопад"
                          class="zone-img w-full h-[420px] object-cover">
                 </div>
@@ -438,13 +440,13 @@ usort($photos, function($a, $b) {
             <!-- Zone 4 ─ Відпочинок ────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
                 <div class="zone-wrap overflow-hidden anim anim-left">
-                    <img src="sauna-photo/photo_20_2026-03-14_13-29-47.jpg"
+                    <img src="sauna-photo/photo_17_2026-03-14_13-29-47.jpg"
                          alt="Кімната відпочинку Водопад"
                          class="zone-img w-full h-[420px] object-cover">
                 </div>
                 <div class="anim anim-right">
-                    <div class="font-playfair text-[8rem] leading-none text-gray-800/60 mb-2 select-none">04</div>
-                    <h3 class="font-playfair text-4xl text-white mb-5">Зона Релаксації</h3>
+                    <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">04</div>
+                    <h3 class="font-play text-4xl text-white mb-5">Зона Релаксації</h3>
                     <p class="text-gray-400 leading-relaxed mb-8">
                         Затишна кімната відпочинку на 12 осіб з живим каміном та
                         декоративним акваріумом — ідеальне місце щоб відновити
@@ -480,7 +482,7 @@ usort($photos, function($a, $b) {
                         <div class="w-10 h-px bg-teal-600"></div>
                         <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Для вашого здоров'я</span>
                     </div>
-                    <h2 class="font-playfair text-5xl md:text-6xl text-white mb-8 anim anim-up d1">
+                    <h2 class="font-play text-5xl md:text-6xl text-white mb-8 anim anim-up d1">
                         Що дає<br><em>сауна</em>
                     </h2>
                     <p class="text-gray-400 leading-relaxed mb-10 anim anim-up d2">
@@ -488,7 +490,7 @@ usort($photos, function($a, $b) {
                         а повноцінна оздоровча практика, що має наукове підтвердження.
                     </p>
                     <blockquote class="border-l-2 border-amber-500 pl-6 py-2 anim anim-up d3">
-                        <p class="font-playfair text-xl text-amber-300/80 italic leading-snug">
+                        <p class="font-play text-xl text-amber-300/80 italic leading-snug">
                             "Дайте мені жар і я вилікую будь-яку хворобу."
                         </p>
                         <footer class="text-xs text-gray-600 mt-3 uppercase tracking-widest">— Парацельс</footer>
@@ -533,7 +535,7 @@ usort($photos, function($a, $b) {
                     <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Просто і зручно</span>
                     <div class="w-10 h-px bg-teal-600"></div>
                 </div>
-                <h2 class="font-playfair text-5xl md:text-6xl text-white anim anim-up d1">Як це працює</h2>
+                <h2 class="font-play text-5xl md:text-6xl text-white anim anim-up d1">Як це працює</h2>
             </div>
 
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
@@ -552,7 +554,7 @@ usort($photos, function($a, $b) {
                     <div class="w-14 h-14 rounded-full bg-teal-900 border-2 border-teal-600 flex items-center justify-center mx-auto mb-5 relative z-10">
                         <i class="fa-solid <?= $icon ?> text-teal-300 text-lg"></i>
                     </div>
-                    <div class="font-playfair text-xs text-teal-700 mb-2 tracking-widest"><?= str_pad($num,2,'0',STR_PAD_LEFT) ?></div>
+                    <div class="font-play text-xs text-teal-700 mb-2 tracking-widest"><?= str_pad($num,2,'0',STR_PAD_LEFT) ?></div>
                     <h4 class="font-bold text-white text-sm mb-2 uppercase tracking-[.08em]"><?= $title ?></h4>
                     <p class="text-xs text-gray-500 leading-relaxed"><?= $text ?></p>
                 </div>
@@ -574,7 +576,7 @@ usort($photos, function($a, $b) {
                         <div class="w-10 h-px bg-amber-500"></div>
                         <span class="text-base font-bold text-amber-500 uppercase tracking-[.25em]">Прозоро і чесно</span>
                     </div>
-                    <h2 class="font-playfair text-5xl md:text-6xl text-white mb-8 anim anim-up d1">Ціни</h2>
+                    <h2 class="font-play text-5xl md:text-6xl text-white mb-8 anim anim-up d1">Ціни</h2>
                     <p class="text-gray-400 leading-relaxed mb-8 anim anim-up d2">
                         Оренда всього комплексу для вашої компанії.
                         У вартість включено всі зони без обмежень,
@@ -616,7 +618,7 @@ usort($photos, function($a, $b) {
                     ?>
                     <div class="price-row flex items-center gap-6 px-6 py-5 border-b border-gray-800/80 <?= $popular ? 'bg-teal-900/20 border-l-2 border-l-teal-600' : '' ?>">
                         <div class="flex-shrink-0 w-12 text-right">
-                            <span class="font-playfair text-4xl <?= $popular ? 'text-teal-300' : 'text-gray-600' ?>"><?= $hours ?></span>
+                            <span class="font-play text-4xl <?= $popular ? 'text-teal-300' : 'text-gray-600' ?>"><?= $hours ?></span>
                         </div>
                         <div class="text-xs text-gray-600 uppercase tracking-[.15em] flex-shrink-0 w-14">
                             <?= $hours == 1 ? 'година' : ($hours < 5 ? 'години' : 'годин') ?>
@@ -628,7 +630,7 @@ usort($photos, function($a, $b) {
                         </div>
                         <?php endif; ?>
                         <div class="flex-shrink-0 text-right">
-                            <span class="font-playfair text-3xl <?= $popular ? 'text-amber-400' : 'text-white' ?>"><?= number_format((int)$price, 0, '.', '&thinsp;') ?></span>
+                            <span class="font-play text-3xl <?= $popular ? 'text-amber-400' : 'text-white' ?>"><?= number_format((int)$price, 0, '.', '&thinsp;') ?></span>
                             <span class="text-xs text-gray-600 ml-1">грн</span>
                         </div>
                         <a href="#booking"
@@ -653,7 +655,7 @@ usort($photos, function($a, $b) {
                         <div class="w-10 h-px bg-teal-600"></div>
                         <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Наш комплекс</span>
                     </div>
-                    <h2 class="font-playfair text-5xl md:text-6xl text-white anim anim-up d1">Галерея</h2>
+                    <h2 class="font-play text-5xl md:text-6xl text-white anim anim-up d1">Галерея</h2>
                 </div>
                 <span class="text-base text-gray-600 uppercase tracking-[.18em] hidden md:flex items-center gap-2 mb-2 anim anim-up">
                     <i class="fa-solid fa-hand-pointer"></i>Клікайте для перегляду
@@ -701,7 +703,7 @@ usort($photos, function($a, $b) {
     <section id="booking" class="relative py-28 bg-gray-900 border-b border-gray-800 overflow-hidden">
         <!-- Decorative bg text -->
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden" aria-hidden="true">
-            <span class="font-playfair text-[18vw] text-gray-800/20 whitespace-nowrap leading-none">Водопад</span>
+            <span class="font-play text-[18vw] text-gray-800/20 whitespace-nowrap leading-none">Водопад</span>
         </div>
 
         <div class="relative max-w-screen-xl mx-auto px-6">
@@ -711,7 +713,7 @@ usort($photos, function($a, $b) {
                     <span class="text-base font-bold text-amber-500 uppercase tracking-[.25em]">Ми вас чекаємо</span>
                     <div class="w-10 h-px bg-amber-500"></div>
                 </div>
-                <h2 class="font-playfair text-5xl md:text-6xl text-white mb-5 anim anim-up d1"><?= $form_title ?></h2>
+                <h2 class="font-play text-5xl md:text-6xl text-white mb-5 anim anim-up d1"><?= $form_title ?></h2>
                 <p class="text-gray-400 mb-12 anim anim-up d2">Залиште заявку — ми зателефонуємо і підберемо зручний час для вашої компанії.</p>
 
                 <form action="submit.php" method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-4 anim anim-up d3">
@@ -770,7 +772,7 @@ usort($photos, function($a, $b) {
                         <div class="w-10 h-px bg-teal-600"></div>
                         <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Як нас знайти</span>
                     </div>
-                    <h2 class="font-playfair text-5xl text-white mb-12 anim anim-up d1">Контакти</h2>
+                    <h2 class="font-play text-5xl text-white mb-12 anim anim-up d1">Контакти</h2>
 
                     <div class="space-y-8">
                         <div class="flex items-start gap-5 anim anim-up d2">
@@ -822,7 +824,7 @@ usort($photos, function($a, $b) {
                 <div class="anim anim-right">
                     <div class="relative h-full min-h-[380px] border border-gray-800 overflow-hidden">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2604.0!2d26.95!3d49.42!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDI1JzEyLjAiTiAyNsKwNTcnMDAuMCJF!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5184.328782595486!2d26.97170125574094!3d49.481401629366175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473205df4881f28b%3A0x9801f4f28302ac83!2z0JPQvtGC0LXQu9GM0L3Qvi3RgNC10YHRgtC-0YDQsNC90L3QuNC5INC60L7QvNC_0LvQtdC60YEgItCS0L7QtNC-0L_QsNC0Ig!5e0!3m2!1suk!2sua!4v1773583564143!5m2!1suk!2sua"
                             width="100%" height="100%"
                             style="border:0; position:absolute; inset:0; filter:invert(90%) hue-rotate(180deg) saturate(0.8);"
                             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
