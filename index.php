@@ -235,7 +235,7 @@ usort($photos, function($a, $b) {
 
             <!-- Headline -->
             <h1 class="font-play leading-none text-white mb-8" style="font-size: clamp(5rem, 12vw, 9rem); line-height: .9;">
-                Водо<span class="text-teal-300">пад</span>
+                <span style="font-size:50%">Готель-Сауна</span> Водо<span class="text-teal-300">пад</span>
             </h1>
 
             <!-- Desc -->
