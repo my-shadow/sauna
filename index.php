@@ -267,7 +267,7 @@ usort($photos, function($a, $b) {
 
         <!-- Right: photo -->
         <div class="relative flex-1 min-h-[55vw] lg:min-h-screen overflow-hidden">
-            <img src="sauna-photo/photo_1_2026-03-14_13-29-47.jpg"
+            <img src="sauna-photo/photo_5_2026-03-14_13-29-47.jpg"
                  alt="Готель-сауна Водопад"
                  class="absolute inset-0 w-full h-full object-cover">
             <!-- Overlap gradient from left -->
