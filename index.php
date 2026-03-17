@@ -19,7 +19,7 @@ $price_7h = e($settings['price_7h']) ?: '7250';
 $price_8h = e($settings['price_8h']) ?: '7750';
 
 $phone        = e($settings['phone']) ?: '096 001 6 001';
-$address      = e($settings['address']) ?: 'Дачний масив «Видрові доли», готель-сауна Водопад';
+$address      = e($settings['address']) ?: 'Дачний масив «Видрові доли», Сауна & Літній басейн Водопад';
 $analytics_id = e($settings['analytics_id']) ?: '';
 
 $phone_clean = preg_replace('/[^\d+]/', '', $phone);
@@ -196,7 +196,7 @@ usort($photos, function($a, $b) {
                 <span class="text-2xl leading-none select-none">💧</span>
                 <div class="leading-none">
                     <span class="block text-base font-bold text-teal-300 uppercase tracking-[.18em]">ВОДОПАД</span>
-                    <span class="block text-base text-gray-600 uppercase tracking-[.28em] mt-0.5">Готель · Сауна</span>
+                    <!--<span class="block text-base text-gray-600 uppercase tracking-[.28em] mt-0.5">Готель · Сауна</span>-->
                 </div>
             </a>
 
@@ -226,18 +226,18 @@ usort($photos, function($a, $b) {
     <header class="relative min-h-screen flex flex-col lg:flex-row overflow-hidden">
 
         <!-- Left: text panel -->
-        <div class="relative z-10 w-full lg:w-[46%] bg-gray-950 flex flex-col justify-center
-                    px-8 md:px-14 xl:px-20 pt-28 pb-16 lg:pt-0 lg:pb-0 flex-shrink-0">
+        <div class="relative z-10 w-full lg:w-1/2 bg-gray-950 flex flex-col justify-center
+                    pl-8 md:pl-14 xl:pl-20 pr-0 pt-28 pb-16 lg:pt-0 lg:pb-0 flex-shrink-0">
 
             <!-- Eyebrow -->
             <div class="flex items-center gap-3 mb-10">
                 <div class="w-10 h-px bg-teal-600"></div>
-                <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Хмельницький · Відрові Доли</span>
+                <span class="text-base font-bold text-teal-500 uppercase tracking-normal lg:tracking-[.25em]">Хмельницький · Видрові Доли</span>
             </div>
 
             <!-- Headline -->
             <h1 class="font-play leading-none text-white mb-8" style="font-size: clamp(5rem, 12vw, 9rem); line-height: .9;">
-                <span style="font-size:50%">Готель-Сауна</span> Водо<span class="text-teal-300">пад</span>
+                <span style="font-size:40%">Сауна & Літній басейн</span> Водо<span class="text-teal-300">пад</span>
             </h1>
 
             <!-- Desc -->
@@ -358,7 +358,7 @@ usort($photos, function($a, $b) {
                             ['Волога парна', 'Традиційна на дровах із природним живим жаром'],
                             ['Хамам', 'З ароматичними оліями — очищення тіла й розуму'],
                             ['Соляна кімната', 'Галотерапія для здоров\'я дихальних шляхів'],
-                            ['Інфрачервона', 'М\'яке глибоке прогрівання на клітинному рівні'],
+                            ['Чан', 'З гілочками ялинки, сосни та можевельника'],
                         ] as [$name, $desc]): ?>
                         <div class="border-l-2 border-teal-700 pl-4 py-1">
                             <div class="text-sm font-bold text-white mb-1"><?= $name ?></div>
@@ -367,19 +367,72 @@ usort($photos, function($a, $b) {
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2">
-                    <img src="sauna-photo/photo_6_2026-03-14_13-29-47.jpg"
-                         alt="Сауна Водопад — Зона жару"
-                         class="zone-img w-full h-[420px] object-cover">
+                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2 relative group">
+                    <div id="heat-slider" class="relative w-full h-[420px]">
+                        <?php
+                        $heat_slides = [
+                            ['src' => 'sauna-photo/photo_6_2026-03-14_13-29-47.jpg', 'label' => 'Волога парна'],
+                            ['src' => 'sauna-photo/photo_3_2026-03-14_13-29-47.jpg', 'label' => 'Хамам'],
+                            ['src' => 'sauna-photo/photo_10_2026-03-14_13-29-47.jpg', 'label' => 'Соляна кімната'],
+                            ['src' => 'sauna-photo/photo_12_2026-03-14_13-29-47.jpg', 'label' => 'Чан'],
+                        ];
+                        foreach ($heat_slides as $i => $slide): ?>
+                        <img src="<?= $slide['src'] ?>"
+                             alt="<?= $slide['label'] ?>"
+                             class="heat-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
+                        <?php endforeach; ?>
+                        <!-- Label -->
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="heat-label" class="text-sm font-bold text-white"><?= $heat_slides[0]['label'] ?></span>
+                        </div>
+                        <!-- Dots -->
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <?php foreach ($heat_slides as $i => $slide): ?>
+                            <button onclick="heatGoTo(<?= $i ?>)" class="heat-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <!-- Arrows -->
+                        <button onclick="heatPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="heatNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Zone 2 ─ Вода ────────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center mb-28">
-                <div class="zone-wrap overflow-hidden anim anim-left">
-                    <img src="sauna-photo/photo_25_2026-03-14_13-29-47.jpg"
-                         alt="Сауна Водопад — Водні процедури"
-                         class="zone-img w-full h-[420px] object-cover" style="object-position: top">
+                <div class="zone-wrap overflow-hidden anim anim-left relative group">
+                    <div id="water-slider" class="relative w-full h-[420px]">
+                        <?php
+                        $water_slides = [
+                            ['src' => 'sauna-photo/photo_25_2026-03-14_13-29-47.jpg', 'label' => 'Теплий басейн'],
+                            ['src' => 'sauna-photo/photo_7_2026-03-14_13-29-47.jpg', 'label' => 'Джакузі'],
+                            ['src' => 'sauna-photo/photo_15_2026-03-14_13-29-47.jpg', 'label' => 'Крижаний басейн'],
+                            ['src' => 'sauna-photo/photo_20_2026-03-14_13-29-47.jpg', 'label' => 'Душ Шарко & Відро'],
+                        ];
+                        foreach ($water_slides as $i => $slide): ?>
+                        <img src="<?= $slide['src'] ?>"
+                             alt="<?= $slide['label'] ?>"
+                             class="water-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>" style="object-position: top">
+                        <?php endforeach; ?>
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="water-label" class="text-sm font-bold text-white"><?= $water_slides[0]['label'] ?></span>
+                        </div>
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <?php foreach ($water_slides as $i => $slide): ?>
+                            <button onclick="waterGoTo(<?= $i ?>)" class="water-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <button onclick="waterPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="waterNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="anim anim-right">
                     <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">02</div>
@@ -392,7 +445,7 @@ usort($photos, function($a, $b) {
                     <div class="grid grid-cols-2 gap-4">
                         <?php foreach ([
                             ['Теплий басейн', 'Шийний масаж, гейзер і протитечія для відновлення'],
-                            ['Чанн', 'З гілочками ялинки, сосни та можевельника'],
+                            ['Джакузі', 'Ідеальне місце для релаксу після сауни або насиченого дня'],
                             ['Крижаний басейн', 'Загартування після парних процедур'],
                             ['Душ Шарко & Відро', 'Контрастний душ і водоспад для тонусу'],
                         ] as [$name, $desc]): ?>
@@ -432,19 +485,69 @@ usort($photos, function($a, $b) {
                         </div>
                     </div>
                 </div>
-                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2">
-                    <img src="sauna-photo/photo_19_2026-03-14_13-29-47.jpg"
-                         alt="СПА Водопад"
-                         class="zone-img w-full h-[420px] object-cover">
+                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2 relative group">
+                    <div id="spa-slider" class="relative w-full h-[420px]">
+                        <?php
+                        $spa_slides = [
+                            ['src' => 'sauna-photo/photo_19_2026-03-14_13-29-47.jpg', 'label' => 'СПА-басейн'],
+                            ['src' => 'sauna-photo/photo_21_2026-03-14_13-29-47.jpg', 'label' => 'Масаж'],
+                            ['src' => 'sauna-photo/photo_22_2026-03-14_13-29-47.jpg', 'label' => 'Гідромасаж'],
+                            ['src' => 'sauna-photo/photo_23_2026-03-14_13-29-47.jpg', 'label' => 'Релакс'],
+                        ];
+                        foreach ($spa_slides as $i => $slide): ?>
+                        <img src="<?= $slide['src'] ?>"
+                             alt="<?= $slide['label'] ?>"
+                             class="spa-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
+                        <?php endforeach; ?>
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="spa-label" class="text-sm font-bold text-white"><?= $spa_slides[0]['label'] ?></span>
+                        </div>
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <?php foreach ($spa_slides as $i => $slide): ?>
+                            <button onclick="spaGoTo(<?= $i ?>)" class="spa-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <button onclick="spaPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="spaNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Zone 4 ─ Відпочинок ────────────────────── -->
             <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
-                <div class="zone-wrap overflow-hidden anim anim-left">
-                    <img src="sauna-photo/photo_17_2026-03-14_13-29-47.jpg"
-                         alt="Кімната відпочинку Водопад"
-                         class="zone-img w-full h-[420px] object-cover">
+                <div class="zone-wrap overflow-hidden anim anim-left relative group">
+                    <div id="relax-slider" class="relative w-full h-[420px]">
+                        <?php
+                        $relax_slides = [
+                            ['src' => 'sauna-photo/photo_17_2026-03-14_13-29-47.jpg', 'label' => 'Кімната відпочинку'],
+                            ['src' => 'sauna-photo/photo_16_2026-03-14_13-29-47.jpg', 'label' => 'Камін'],
+                            ['src' => 'sauna-photo/photo_18_2026-03-14_13-29-47.jpg', 'label' => 'Акваріум'],
+                            ['src' => 'sauna-photo/photo_14_2026-03-14_13-29-47.jpg', 'label' => 'Інтер\'єр'],
+                        ];
+                        foreach ($relax_slides as $i => $slide): ?>
+                        <img src="<?= $slide['src'] ?>"
+                             alt="<?= $slide['label'] ?>"
+                             class="relax-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
+                        <?php endforeach; ?>
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="relax-label" class="text-sm font-bold text-white"><?= $relax_slides[0]['label'] ?></span>
+                        </div>
+                        <div class="absolute bottom-4 right-4 flex gap-2">
+                            <?php foreach ($relax_slides as $i => $slide): ?>
+                            <button onclick="relaxGoTo(<?= $i ?>)" class="relax-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <button onclick="relaxPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="relaxNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="anim anim-right">
                     <div class="font-play text-[8rem] leading-none text-gray-800/60 mb-2 select-none">04</div>
@@ -469,6 +572,50 @@ usort($photos, function($a, $b) {
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════ GALLERY ══ -->
+    <section id="gallery" class="py-28 bg-gray-950 border-b border-gray-900">
+        <div class="max-w-screen-xl mx-auto px-6 mb-10">
+            <div class="flex items-end justify-between">
+                <div>
+                    <div class="flex items-center gap-4 mb-5 anim anim-up">
+                        <div class="w-10 h-px bg-teal-600"></div>
+                        <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Наш комплекс</span>
+                    </div>
+                    <h2 class="font-play text-5xl md:text-6xl text-white anim anim-up d1">Галерея</h2>
+                </div>
+                <span class="text-base text-gray-600 uppercase tracking-[.18em] hidden md:flex items-center gap-2 mb-2 anim anim-up">
+                    <i class="fa-solid fa-hand-pointer"></i>Клікайте для перегляду
+                </span>
+            </div>
+        </div>
+
+        <!-- Row 1 → left -->
+        <div class="gallery-strip overflow-hidden mb-3">
+            <div class="gallery-track gallery-track-l">
+                <?php foreach ([$photos, $photos] as $set): foreach ($set as $i => $photo): ?>
+                <div class="gallery-item" data-index="<?= $i ?>">
+                    <img src="<?= e($photo) ?>" alt="Фото <?= $i+1 ?>" class="h-[260px] w-auto">
+                </div>
+                <?php endforeach; endforeach; ?>
+            </div>
+        </div>
+
+        <!-- Row 2 → right -->
+        <div class="gallery-strip overflow-hidden">
+            <div class="gallery-track gallery-track-r">
+                <?php
+                $photos_rev = array_reverse($photos);
+                foreach ([$photos_rev, $photos_rev] as $set): foreach ($set as $i => $photo):
+                    $orig_idx = array_search($photo, $photos);
+                ?>
+                <div class="gallery-item" data-index="<?= $orig_idx ?>">
+                    <img src="<?= e($photo) ?>" alt="Фото <?= $orig_idx+1 ?>" class="h-[260px] w-auto">
+                </div>
+                <?php endforeach; endforeach; ?>
+            </div>
         </div>
     </section>
 
@@ -648,50 +795,6 @@ usort($photos, function($a, $b) {
         </div>
     </section>
 
-    <!-- ══════════════════════════════════════ GALLERY ══ -->
-    <section id="gallery" class="py-28 bg-gray-950 border-b border-gray-900">
-        <div class="max-w-screen-xl mx-auto px-6 mb-10">
-            <div class="flex items-end justify-between">
-                <div>
-                    <div class="flex items-center gap-4 mb-5 anim anim-up">
-                        <div class="w-10 h-px bg-teal-600"></div>
-                        <span class="text-base font-bold text-teal-500 uppercase tracking-[.25em]">Наш комплекс</span>
-                    </div>
-                    <h2 class="font-play text-5xl md:text-6xl text-white anim anim-up d1">Галерея</h2>
-                </div>
-                <span class="text-base text-gray-600 uppercase tracking-[.18em] hidden md:flex items-center gap-2 mb-2 anim anim-up">
-                    <i class="fa-solid fa-hand-pointer"></i>Клікайте для перегляду
-                </span>
-            </div>
-        </div>
-
-        <!-- Row 1 → left -->
-        <div class="gallery-strip overflow-hidden mb-3">
-            <div class="gallery-track gallery-track-l">
-                <?php foreach ([$photos, $photos] as $set): foreach ($set as $i => $photo): ?>
-                <div class="gallery-item" data-index="<?= $i ?>">
-                    <img src="<?= e($photo) ?>" alt="Фото <?= $i+1 ?>" class="h-[260px] w-auto">
-                </div>
-                <?php endforeach; endforeach; ?>
-            </div>
-        </div>
-
-        <!-- Row 2 → right -->
-        <div class="gallery-strip overflow-hidden">
-            <div class="gallery-track gallery-track-r">
-                <?php
-                $photos_rev = array_reverse($photos);
-                foreach ([$photos_rev, $photos_rev] as $set): foreach ($set as $i => $photo):
-                    $orig_idx = array_search($photo, $photos);
-                ?>
-                <div class="gallery-item" data-index="<?= $orig_idx ?>">
-                    <img src="<?= e($photo) ?>" alt="Фото <?= $orig_idx+1 ?>" class="h-[260px] w-auto">
-                </div>
-                <?php endforeach; endforeach; ?>
-            </div>
-        </div>
-    </section>
-
     <!-- ════════════════════════════════════ LIGHTBOX ══ -->
     <div id="lb" role="dialog" aria-modal="true">
         <button id="lb-close" class="lb-close" aria-label="Закрити"><i class="fa-solid fa-xmark"></i></button>
@@ -847,7 +950,7 @@ usort($photos, function($a, $b) {
                     <span class="text-3xl">💧</span>
                     <div>
                         <div class="text-lg font-bold text-teal-300 uppercase tracking-[.18em]">ВОДОПАД</div>
-                        <div class="text-base text-gray-600 uppercase tracking-[.3em]">Готель · Сауна</div>
+                        <!--<div class="text-base text-gray-600 uppercase tracking-[.3em]">Готель · Сауна</div>-->
                     </div>
                 </div>
 
@@ -875,6 +978,112 @@ usort($photos, function($a, $b) {
 
     <!-- ══════════════════════════════════════ SCRIPTS ══ -->
     <script src="https://unpkg.com/imask"></script>
+    <script>
+    /* ── Heat zone slider ──────────────────────────────── */
+    (function() {
+        const slides = document.querySelectorAll('.heat-slide');
+        const dots = document.querySelectorAll('.heat-dot');
+        const label = document.getElementById('heat-label');
+        const labels = <?= json_encode(array_column($heat_slides, 'label')) ?>;
+        let cur = 0, timer;
+
+        function goTo(i) {
+            slides[cur].classList.replace('opacity-100','opacity-0');
+            dots[cur].classList.remove('bg-teal-400','scale-125');
+            dots[cur].classList.add('bg-white/50');
+            cur = (i + slides.length) % slides.length;
+            slides[cur].classList.replace('opacity-0','opacity-100');
+            dots[cur].classList.remove('bg-white/50');
+            dots[cur].classList.add('bg-teal-400','scale-125');
+            label.textContent = labels[cur];
+            resetTimer();
+        }
+        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4000); }
+        window.heatGoTo = goTo;
+        window.heatNext = () => goTo(cur+1);
+        window.heatPrev = () => goTo(cur-1);
+        resetTimer();
+    })();
+
+    /* ── Water zone slider ─────────────────────────────── */
+    (function() {
+        const slides = document.querySelectorAll('.water-slide');
+        const dots = document.querySelectorAll('.water-dot');
+        const label = document.getElementById('water-label');
+        const labels = <?= json_encode(array_column($water_slides, 'label')) ?>;
+        let cur = 0, timer;
+
+        function goTo(i) {
+            slides[cur].classList.replace('opacity-100','opacity-0');
+            dots[cur].classList.remove('bg-teal-400','scale-125');
+            dots[cur].classList.add('bg-white/50');
+            cur = (i + slides.length) % slides.length;
+            slides[cur].classList.replace('opacity-0','opacity-100');
+            dots[cur].classList.remove('bg-white/50');
+            dots[cur].classList.add('bg-teal-400','scale-125');
+            label.textContent = labels[cur];
+            resetTimer();
+        }
+        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4000); }
+        window.waterGoTo = goTo;
+        window.waterNext = () => goTo(cur+1);
+        window.waterPrev = () => goTo(cur-1);
+        resetTimer();
+    })();
+
+    /* ── SPA zone slider ───────────────────────────────── */
+    (function() {
+        const slides = document.querySelectorAll('.spa-slide');
+        const dots = document.querySelectorAll('.spa-dot');
+        const label = document.getElementById('spa-label');
+        const labels = <?= json_encode(array_column($spa_slides, 'label')) ?>;
+        let cur = 0, timer;
+
+        function goTo(i) {
+            slides[cur].classList.replace('opacity-100','opacity-0');
+            dots[cur].classList.remove('bg-teal-400','scale-125');
+            dots[cur].classList.add('bg-white/50');
+            cur = (i + slides.length) % slides.length;
+            slides[cur].classList.replace('opacity-0','opacity-100');
+            dots[cur].classList.remove('bg-white/50');
+            dots[cur].classList.add('bg-teal-400','scale-125');
+            label.textContent = labels[cur];
+            resetTimer();
+        }
+        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4000); }
+        window.spaGoTo = goTo;
+        window.spaNext = () => goTo(cur+1);
+        window.spaPrev = () => goTo(cur-1);
+        resetTimer();
+    })();
+
+    /* ── Relax zone slider ─────────────────────────────── */
+    (function() {
+        const slides = document.querySelectorAll('.relax-slide');
+        const dots = document.querySelectorAll('.relax-dot');
+        const label = document.getElementById('relax-label');
+        const labels = <?= json_encode(array_column($relax_slides, 'label')) ?>;
+        let cur = 0, timer;
+
+        function goTo(i) {
+            slides[cur].classList.replace('opacity-100','opacity-0');
+            dots[cur].classList.remove('bg-teal-400','scale-125');
+            dots[cur].classList.add('bg-white/50');
+            cur = (i + slides.length) % slides.length;
+            slides[cur].classList.replace('opacity-0','opacity-100');
+            dots[cur].classList.remove('bg-white/50');
+            dots[cur].classList.add('bg-teal-400','scale-125');
+            label.textContent = labels[cur];
+            resetTimer();
+        }
+        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4000); }
+        window.relaxGoTo = goTo;
+        window.relaxNext = () => goTo(cur+1);
+        window.relaxPrev = () => goTo(cur-1);
+        resetTimer();
+    })();
+    </script>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
 
