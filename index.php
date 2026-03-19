@@ -227,10 +227,10 @@ usort($photos, function($a, $b) {
 
         <!-- Left: text panel -->
         <div class="relative z-10 w-full lg:w-1/2 bg-gray-950 flex flex-col justify-center
-                    pl-8 md:pl-14 xl:pl-20 pr-0 pt-28 pb-16 lg:pt-0 lg:pb-0 flex-shrink-0">
+                    pl-8 md:pl-14 xl:pl-20 pr-0 pt-28 pb-16 lg:pb-0 flex-shrink-0">
 
             <!-- Eyebrow -->
-            <div class="flex items-center gap-3 mb-10">
+            <div class="flex items-center gap-3">
                 <div class="w-10 h-px bg-teal-600"></div>
                 <span class="text-base font-bold text-teal-500 uppercase tracking-normal lg:tracking-[.25em]">Хмельницький · Видрові Доли</span>
             </div>
@@ -258,7 +258,7 @@ usort($photos, function($a, $b) {
             <!-- Phone -->
             <div class="flex items-center gap-3">
                 <div class="w-8 h-px bg-gray-800"></div>
-                <a href="tel:<?= $phone_clean ?>" class="text-sm text-gray-500 font-bold hover:text-white transition tracking-widest">
+                <a href="tel:<?= $phone_clean ?>" class="text-gray-500 font-bold hover:text-white transition tracking-widest">
                     <?= $phone ?>
                 </a>
             </div>
@@ -373,8 +373,8 @@ usort($photos, function($a, $b) {
                         $heat_slides = [
                             ['src' => 'sauna-photo/photo_6_2026-03-14_13-29-47.jpg', 'label' => 'Волога парна'],
                             ['src' => 'sauna-photo/photo_3_2026-03-14_13-29-47.jpg', 'label' => 'Хамам'],
-                            ['src' => 'sauna-photo/photo_10_2026-03-14_13-29-47.jpg', 'label' => 'Соляна кімната'],
-                            ['src' => 'sauna-photo/photo_12_2026-03-14_13-29-47.jpg', 'label' => 'Чан'],
+                            ['src' => 'sauna-photo/photo_7_2026-03-14_13-29-47.jpg', 'label' => 'Соляна кімната'],
+                            ['src' => 'sauna-photo/photo_1_2026-03-14_13-29-47.jpg', 'label' => 'Чан'],
                         ];
                         foreach ($heat_slides as $i => $slide): ?>
                         <img src="<?= $slide['src'] ?>"
@@ -408,15 +408,15 @@ usort($photos, function($a, $b) {
                     <div id="water-slider" class="relative w-full h-[420px]">
                         <?php
                         $water_slides = [
-                            ['src' => 'sauna-photo/photo_25_2026-03-14_13-29-47.jpg', 'label' => 'Теплий басейн'],
-                            ['src' => 'sauna-photo/photo_7_2026-03-14_13-29-47.jpg', 'label' => 'Джакузі'],
+                            ['src' => 'sauna-photo/photo_22_2026-03-14_13-29-47.jpg', 'label' => 'Теплий басейн'],
+                            ['src' => 'sauna-photo/photo_24_2026-03-14_13-29-47.jpg', 'label' => 'Джакузі'],
                             ['src' => 'sauna-photo/photo_15_2026-03-14_13-29-47.jpg', 'label' => 'Крижаний басейн'],
                             ['src' => 'sauna-photo/photo_20_2026-03-14_13-29-47.jpg', 'label' => 'Душ Шарко & Відро'],
                         ];
                         foreach ($water_slides as $i => $slide): ?>
                         <img src="<?= $slide['src'] ?>"
                              alt="<?= $slide['label'] ?>"
-                             class="water-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>" style="object-position: top">
+                             class="water-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>" >
                         <?php endforeach; ?>
                         <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
                             <span id="water-label" class="text-sm font-bold text-white"><?= $water_slides[0]['label'] ?></span>
@@ -499,9 +499,9 @@ usort($photos, function($a, $b) {
                              alt="<?= $slide['label'] ?>"
                              class="spa-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
                         <?php endforeach; ?>
-                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
-                            <span id="spa-label" class="text-sm font-bold text-white"><?= $spa_slides[0]['label'] ?></span>
-                        </div>
+                        <!--<div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="spa-label" class="text-sm font-bold text-white"><?php /*= $spa_slides[0]['label'] */?></span>
+                        </div>-->
                         <div class="absolute bottom-4 right-4 flex gap-2">
                             <?php foreach ($spa_slides as $i => $slide): ?>
                             <button onclick="spaGoTo(<?= $i ?>)" class="spa-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
@@ -533,9 +533,9 @@ usort($photos, function($a, $b) {
                              alt="<?= $slide['label'] ?>"
                              class="relax-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
                         <?php endforeach; ?>
-                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
-                            <span id="relax-label" class="text-sm font-bold text-white"><?= $relax_slides[0]['label'] ?></span>
-                        </div>
+                        <!--<div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
+                            <span id="relax-label" class="text-sm font-bold text-white"><?php /*= $relax_slides[0]['label'] */?></span>
+                        </div>-->
                         <div class="absolute bottom-4 right-4 flex gap-2">
                             <?php foreach ($relax_slides as $i => $slide): ?>
                             <button onclick="relaxGoTo(<?= $i ?>)" class="relax-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
