@@ -122,6 +122,7 @@ usort($photos, function($a, $b) {
         /* ── Nav ──────────────────────────────────────────────── */
         #nav { transition: background .35s, border-color .35s; }
         #nav.solid { background: rgba(3,7,18,.97) !important; border-bottom-color: rgba(20,184,166,.2) !important; }
+        @media (max-width: 399px) { .logo-text { display: none; } }
 
         /* ── Ticker ───────────────────────────────────────────── */
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -194,7 +195,7 @@ usort($photos, function($a, $b) {
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3 flex-shrink-0">
                 <span class="text-2xl leading-none select-none">💧</span>
-                <div class="leading-none">
+                <div class="leading-none logo-text">
                     <span class="block text-base font-bold text-teal-300 uppercase tracking-[.18em]">ВОДОПАД</span>
                     <!--<span class="block text-base text-gray-600 uppercase tracking-[.28em] mt-0.5">Готель · Сауна</span>-->
                 </div>
@@ -485,35 +486,10 @@ usort($photos, function($a, $b) {
                         </div>
                     </div>
                 </div>
-                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2 relative group">
-                    <div id="spa-slider" class="relative w-full h-[420px]">
-                        <?php
-                        $spa_slides = [
-                            ['src' => 'sauna-photo/photo_19_2026-03-14_13-29-47.jpg', 'label' => 'СПА-басейн'],
-                            ['src' => 'sauna-photo/photo_21_2026-03-14_13-29-47.jpg', 'label' => 'Масаж'],
-                            ['src' => 'sauna-photo/photo_22_2026-03-14_13-29-47.jpg', 'label' => 'Гідромасаж'],
-                            ['src' => 'sauna-photo/photo_23_2026-03-14_13-29-47.jpg', 'label' => 'Релакс'],
-                        ];
-                        foreach ($spa_slides as $i => $slide): ?>
-                        <img src="<?= $slide['src'] ?>"
-                             alt="<?= $slide['label'] ?>"
-                             class="spa-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700 <?= $i === 0 ? 'opacity-100' : 'opacity-0' ?>">
-                        <?php endforeach; ?>
-                        <!--<div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded">
-                            <span id="spa-label" class="text-sm font-bold text-white"><?php /*= $spa_slides[0]['label'] */?></span>
-                        </div>-->
-                        <div class="absolute bottom-4 right-4 flex gap-2">
-                            <?php foreach ($spa_slides as $i => $slide): ?>
-                            <button onclick="spaGoTo(<?= $i ?>)" class="spa-dot w-2.5 h-2.5 rounded-full transition-all <?= $i === 0 ? 'bg-teal-400 scale-125' : 'bg-white/50 hover:bg-white/80' ?>"></button>
-                            <?php endforeach; ?>
-                        </div>
-                        <button onclick="spaPrev()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
-                            <i class="fa-solid fa-chevron-left text-sm"></i>
-                        </button>
-                        <button onclick="spaNext()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/40 hover:bg-black/60 rounded-full flex items-center justify-center text-white transition opacity-0 group-hover:opacity-100">
-                            <i class="fa-solid fa-chevron-right text-sm"></i>
-                        </button>
-                    </div>
+                <div class="zone-wrap overflow-hidden anim anim-right order-1 lg:order-2 relative">
+                    <video src="sauna-photo/sauna-massage.mp4"
+                           autoplay muted loop playsinline
+                           class="w-full h-auto max-h-[700px] object-contain rounded"></video>
                 </div>
             </div>
 
@@ -644,6 +620,9 @@ usort($photos, function($a, $b) {
                         </p>
                         <footer class="text-xs text-gray-600 mt-3 uppercase tracking-widest">— Парацельс</footer>
                     </blockquote>
+                    <a href="#booking" class="inline-block bg-amber-500 hover:bg-amber-400 text-gray-950 px-8 py-4 text-sm font-bold uppercase tracking-[.12em] transition mt-10 anim anim-up d4">
+                        Забронювати сеанс
+                    </a>
                 </div>
 
                 <!-- Right: benefit cards -->
@@ -1031,31 +1010,6 @@ usort($photos, function($a, $b) {
         resetTimer();
     })();
 
-    /* ── SPA zone slider ───────────────────────────────── */
-    (function() {
-        const slides = document.querySelectorAll('.spa-slide');
-        const dots = document.querySelectorAll('.spa-dot');
-        const label = document.getElementById('spa-label');
-        const labels = <?= json_encode(array_column($spa_slides, 'label')) ?>;
-        let cur = 0, timer;
-
-        function goTo(i) {
-            slides[cur].classList.replace('opacity-100','opacity-0');
-            dots[cur].classList.remove('bg-teal-400','scale-125');
-            dots[cur].classList.add('bg-white/50');
-            cur = (i + slides.length) % slides.length;
-            slides[cur].classList.replace('opacity-0','opacity-100');
-            dots[cur].classList.remove('bg-white/50');
-            dots[cur].classList.add('bg-teal-400','scale-125');
-            label.textContent = labels[cur];
-            resetTimer();
-        }
-        function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(cur+1), 4000); }
-        window.spaGoTo = goTo;
-        window.spaNext = () => goTo(cur+1);
-        window.spaPrev = () => goTo(cur-1);
-        resetTimer();
-    })();
 
     /* ── Relax zone slider ─────────────────────────────── */
     (function() {
