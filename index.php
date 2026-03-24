@@ -950,7 +950,11 @@ usort($photos, function($a, $b) {
 
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <p class="text-xs text-gray-600 italic"><?= $footer_text ?></p>
-                <p class="text-base text-gray-700 uppercase tracking-[.2em]">&copy; <?= date('Y') ?> Всі права захищені</p>
+                <div class="flex items-center gap-4">
+                    <a href="/privacy" class="text-xs text-gray-600 hover:text-teal-400 transition">Політика приватності</a>
+                    <span class="text-gray-800">|</span>
+                    <p class="text-base text-gray-700 uppercase tracking-[.2em]">&copy; <?= date('Y') ?> Всі права захищені</p>
+                </div>
             </div>
         </div>
     </footer>
